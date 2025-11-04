@@ -1,3 +1,48 @@
 baseURL = 'https://gallery.tahmidul612.com/'
 languageCode = 'en-us'
-title = 'My Photography Gallery'
+title = 'Gallery'
+theme = "gallery"
+enableRobotsTXT = true
+timeZone = "America/Toronto"
+timeout = "30s"
+
+[params]
+  defaultTheme = "dark"
+  description = "Tahmidul's Gallery"
+  title = "Gallery"
+  [params.author]
+    email = "me@tahmidul612.com"
+    name = "Tahmidul Islam"
+  [params.socialIcons]
+    instagram = "https://www.instagram.com/thelittolprince"
+    github = "https://github.com/tahmidul612"
+    email = "mailto:me@tahmidul612.com"
+    website = "https://tahmidul612.com"
+    linkedin = "https://www.linkedin.com/in/tahmidul612"
+  [params.gallery]
+    #boxSpacing = 10
+    #targetRowHeight = 288
+    #targetRowHeightTolerance = 0.25
+
+[outputs]
+  home = ["HTML", "RSS"]
+  page = ["HTML"]
+  section = ["HTML"]
+
+[imaging]
+  quality = 75
+  resampleFilter = "CatmullRom"
+  [imaging.exif]
+    disableDate = false
+    disableLatLong = false
+    includeFields = "ImageDescription|Orientation"
+
+[menu]
+  [[menu.footer]]
+    name = "Hugo Theme Gallery"
+    url = "https://github.com/nicokaiser/hugo-theme-gallery/"
+    weight = 3
+
+[services]
+  [services.rss]
+    limit = 100
