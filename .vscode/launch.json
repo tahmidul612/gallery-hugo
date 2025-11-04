@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node-terminal",
+      "request": "launch",
+      "name": "hugo: Serve site",
+      "command": "hugo server",
+      "cwd": "${workspaceFolder}",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "Web Server is available at (https?://\\S+|[0-9]+)",
+        "uriFormat": "%s"
+      }
+    }
+  ]
+}
