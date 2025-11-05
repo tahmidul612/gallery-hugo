@@ -1,0 +1,78 @@
+{{ range where site.Pages.ByDate.Reverse "Params.featured" "=" true }}
+  {{ $gallery := partial "get-gallery.html" . }}
+  {{ if $gallery }}
+    {{ $images := where (.Resources.ByType "image") "Params.hidden" "ne" true }}
+    {{ if gt (len $images) 0 }}
+      <section class="featured">
+        <div class="featured-carousel" data-album-url="{{ .RelPermalink }}">
+          <!-- Carousel Slides -->
+          <div class="carousel-slides">
+            {{ range $index, $image := $images }}
+              {{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process "fit 1600x1600")) }}
+              {{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+              <div class="carousel-slide {{ if eq $index 0 }}active{{ end }}"
+                   style="background-color: {{ $color }}; background-image: url({{ $thumbnail.RelPermalink }})">
+              </div>
+            {{ end }}
+          </div>
+
+          <!-- Overlay Content -->
+          <div class="carousel-overlay">
+            <div class="carousel-content">
+              <h2>{{ .Title }}</h2>
+              <p>
+                {{ if gt $gallery.albumCount 0 }}
+                  {{ T "albumCount" (dict "count" ($gallery.albumCount | lang.FormatNumber 0) "photoCount" ($gallery.imageCount | lang.FormatNumber 0 | lang.Translate "photoCount")) }}
+                {{ else }}
+                  {{ T "photoCount" ($gallery.imageCount | lang.FormatNumber 0) }}
+                {{ end }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <button class="carousel-nav carousel-prev" aria-label="Previous slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="carousel-nav carousel-next" aria-label="Next slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+
+          <!-- Pagination Dots -->
+          <div class="carousel-pagination">
+            {{ range $index, $image := $images }}
+              <button class="carousel-dot {{ if eq $index 0 }}active{{ end }}"
+                      data-slide="{{ $index }}"
+                      aria-label="Go to slide {{ add $index 1 }}"></button>
+            {{ end }}
+          </div>
+
+          <!-- Timer Indicator -->
+          <div class="carousel-timer">
+            <svg width="40" height="40" viewBox="0 0 40 40">
+              <circle class="timer-bg" cx="20" cy="20" r="18" />
+              <circle class="timer-progress" cx="20" cy="20" r="18" />
+            </svg>
+          </div>
+
+          <!-- Click-through link -->
+          <a href="{{ .RelPermalink }}" class="carousel-link" aria-label="View {{ .Title }} album"></a>
+        </div>
+      </section>
+    {{ else }}
+      <!-- Fallback for empty album -->
+      <section class="featured">
+        <div class="featured-card featured-empty">
+          <div>
+            <h2>{{ .Title }}</h2>
+            <p>No images yet. Add images to the featured album to see the carousel.</p>
+          </div>
+        </div>
+      </section>
+    {{ end }}
+  {{ end }}
+{{ end }}
