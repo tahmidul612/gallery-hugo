@@ -5,6 +5,9 @@ description: A curated selection of featured photographs displayed on the homepa
 params:
   featured: true
 resources:
+  - src: images/ambition.jpg
+    params:
+      cover: true
   - src: images/*
 ---
 
