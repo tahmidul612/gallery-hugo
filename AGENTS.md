@@ -1,24 +1,31 @@
+# AGENTS.md
+
 This file provides guidance to AI coding agents like Claude Code (claude.ai/code), Cursor AI, Codex, Gemini CLI, GitHub Copilot, and other AI coding assistants when working with code in this repository.
 
-# Gallery Hugo
+## Gallery Hugo
 
 A personal photography gallery built with Hugo and the [hugo-theme-gallery](https://github.com/nicokaiser/hugo-theme-gallery) theme.
 
 ## Commands
 
 ### Development Server
+
 ```bash
 hugo server -D
 ```
-Start the Hugo development server with drafts enabled. Site will be available at http://localhost:1313/
+
+Start the Hugo development server with drafts enabled. Site will be available at <http://localhost:1313/>
 
 ### Build
+
 ```bash
 hugo
 ```
+
 Generate the static site in the `public/` directory.
 
 ### Theme Development (from themes/gallery/)
+
 ```bash
 npm run prettier    # Format code
 npm run lint        # Lint CSS/SCSS files
@@ -45,7 +52,8 @@ This is a Hugo-based photo gallery where **content organization follows a specif
 ### Image Organization
 
 Images must be organized within the content bundle:
-```
+
+```text
 content/
 ├── nature/
 │   ├── index.md          # Leaf bundle
@@ -55,6 +63,7 @@ content/
 ```
 
 Front matter controls image behavior:
+
 ```yaml
 resources:
   - src: images/*          # Glob pattern to include images
@@ -65,12 +74,15 @@ resources:
 ```
 
 ### Album Cover Selection Priority
+
 1. Image with `cover: true` in front matter resources
 2. Image with `*feature*` in filename (deprecated method)
 3. First image in the album
 
 ### Image Sorting
+
 Configure in front matter:
+
 - `params.sort_by`: `Name` (default, by filename) or `Date` (by EXIF/resource date)
 - `params.sort_order`: `asc` (default) or `desc`
 
@@ -81,6 +93,7 @@ Configure in front matter:
 ### Content Parameters
 
 Key front matter parameters:
+
 - `title` - Album title
 - `date` - For sorting (newest first)
 - `description` - Rendered as markdown on album page
@@ -117,15 +130,18 @@ Key front matter parameters:
 ### Image Metadata
 
 Image titles in lightbox view are sourced from:
+
 1. `ImageDescription` EXIF tag (preferred)
 2. Front matter `resources.title` parameter
 
 Set via exiftool:
+
 ```bash
 exiftool -ImageDescription="Description text" image.jpg
 ```
 
 Or in front matter:
+
 ```yaml
 resources:
   - src: cat-1.jpg
