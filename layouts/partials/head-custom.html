@@ -1,0 +1,12 @@
+{{- /* Custom CSS and JS for homepage carousel */ -}}
+{{- $customCSS := resources.Get "css/custom.css" -}}
+{{- if $customCSS -}}
+  {{- $customCSS = $customCSS | minify | fingerprint -}}
+  <link rel="stylesheet" href="{{ $customCSS.RelPermalink }}" />
+{{- end -}}
+
+{{- $customJS := resources.Get "js/custom.js" -}}
+{{- if $customJS -}}
+  {{- $customJS = $customJS | minify | fingerprint -}}
+  <script src="{{ $customJS.RelPermalink }}" defer></script>
+{{- end -}}
